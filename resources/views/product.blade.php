@@ -15,9 +15,14 @@
             <div class="flex items-center">
                 <a href="{{ route('welcome') }}" class="text-lg font-semibold flex items-center"><x-heroicon-s-arrow-long-left class="h-5 w-5 mr-1" />back</a>
             </div>
-            <div>
-                <a href="{{ route('random.product') }}" class="mr-4">Random Product for You</a>
-                <a href="{{ route('cart.view') }}">Shopping Cart</a>
+            <div class="flex items-center">
+                <a href="{{ route('random.product') }}"
+                    class="text-lg font-semibold flex items-center"><x-rpg-perspective-dice-random
+                        class="h-10 w-10 mr-1" />Random pick</a>
+            </div>
+            <div class="flex items-center">
+                <a href="{{ route('cart.view') }}" class="text-lg font-semibold flex items-center"><x-typ-shopping-cart
+                        class="h-5 w-5 mr-1" />Shopping Cart</a>
             </div>
         </nav>
     </div>

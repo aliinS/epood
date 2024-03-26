@@ -11,6 +11,8 @@
         "blade-ui-kit/blade-icons": "^1.6",
         "blade-ui-kit/blade-zondicons": "^1.5",
         "codeat3/blade-ant-design-icons": "^2.0",
+        "codeat3/blade-rpg-awesome-icons": "^1.5",
+        "codeat3/blade-typicons": "^1.6",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",

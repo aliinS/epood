@@ -24,7 +24,7 @@ class ShoppingCartController extends Controller
     {
         $cart = session()->get('cart', []);
         $itemId = $product->id;
-        $quantity = request()->input('quantity'); // Retrieve quantity from form submission
+        $quantity = max(1, request()->input('quantity')); // Retrieve quantity from form submission, ensuring it's at least 1
 
         // Check if item already exists in cart
         if (array_key_exists($itemId, $cart)) {
@@ -34,6 +34,7 @@ class ShoppingCartController extends Controller
                 'id' => $product->id,
                 'name' => $product->name,
                 'price' => $product->price,
+                'image' => $product->image,
                 'quantity' => $quantity, // Set the submitted quantity,
             ];
         }
