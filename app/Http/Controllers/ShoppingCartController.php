@@ -10,13 +10,13 @@ class ShoppingCartController extends Controller
     public function viewCart()
     {
         $cart = session()->get('cart', []);
-        
+
         // Calculate total price
         $total = 0;
         foreach ($cart as $item) {
             $total += $item['price'] * $item['quantity'];
         }
-        
+
         return view('cart', ['cart' => $cart, 'total' => $total]);
     }
 
@@ -24,20 +24,22 @@ class ShoppingCartController extends Controller
     {
         $cart = session()->get('cart', []);
         $itemId = $product->id;
+        $quantity = request()->input('quantity'); // Retrieve quantity from form submission
 
         // Check if item already exists in cart
         if (array_key_exists($itemId, $cart)) {
-            $cart[$itemId]['quantity']++;
+            $cart[$itemId]['quantity'] += $quantity; // Add the submitted quantity;
         } else {
             $cart[$itemId] = [
                 'id' => $product->id,
                 'name' => $product->name,
                 'price' => $product->price,
-                'quantity' => 1,
+                'quantity' => $quantity, // Set the submitted quantity,
             ];
         }
 
         session()->put('cart', $cart);
+
         return redirect()->route('cart.view')->with('success', 'Item added to cart successfully.');
     }
 
@@ -61,6 +63,7 @@ class ShoppingCartController extends Controller
             }
 
             session()->put('cart', $cart);
+
             return redirect()->route('cart.view')->with('success', 'Cart updated successfully.');
         } else {
             return redirect()->route('cart.view')->with('error', 'Item not found in cart.');
@@ -75,11 +78,10 @@ class ShoppingCartController extends Controller
         if (array_key_exists($itemId, $cart)) {
             unset($cart[$itemId]); // Remove item from cart
             session()->put('cart', $cart);
+
             return redirect()->route('cart.view')->with('success', 'Item removed from cart successfully.');
         } else {
             return redirect()->route('cart.view')->with('error', 'Item not found in cart.');
         }
     }
-    
-
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Our Store</title>
+    <title>Our Store</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
@@ -36,7 +36,7 @@
                             <!-- Product Information -->
                             <div class="p-4">
                                 <h2 class="text-xl font-semibold mb-2">{{ ucfirst($product->name) }}</h2>
-                                <p class="text-gray-800 font-semibold">Price: ${{ $product->price }}</p>
+                                <p class="text-gray-800 font-semibold">{{ $product->price }}€</p>
                             </div>
 
                             <!-- Add to Cart Button -->

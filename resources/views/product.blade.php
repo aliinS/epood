@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $product->name }}</title>
+    <title>Our Store</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100">
 
     <div class="container mx-auto py-4">
-        <nav class="flex items-center justify-between bg-white shadow-md px-4 py-3">
-            <div>
-                <a href="{{ route('welcome') }}" class="text-lg font-semibold">Welcome</a>
+        <nav class="flex items-center justify-between bg-white shadow-md px-4 py-3 ">
+            <div class="flex items-center">
+                <a href="{{ route('welcome') }}" class="text-lg font-semibold flex items-center"><x-heroicon-s-arrow-long-left class="h-5 w-5 mr-1" />back</a>
             </div>
             <div>
                 <a href="{{ route('random.product') }}" class="mr-4">Random Product for You</a>
@@ -38,6 +38,7 @@
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to
                         Basket</button>
                 </form>
+
             </div>
         </div>
     </div>
