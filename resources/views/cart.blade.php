@@ -45,7 +45,7 @@
                             <form action="{{ route('cart.update', $itemId) }}" method="POST" class="inline-flex mr-4">
                                 @csrf
                                 <button type="submit" name="operation" value="decrement"
-                                    class="bg-gray-200 text-gray-200 px-2 py-1 rounded-full hover:bg-gray-300">
+                                    class="bg-gray-200 text-gray-600 px-2 py-1 rounded-full hover:bg-gray-300">
                                     <x-zondicon-minus-outline class="h-4 w-4" />
                                 </button>
                                 <input type="number" name="quantity" min="1" value="{{ $item['quantity'] }}"
