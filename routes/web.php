@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoppingCartController;
@@ -34,3 +35,17 @@ Route::get('/random-product', function () {
     $randomProductId = \App\Models\Product::inRandomOrder()->first()->id;
     return redirect()->route('product.detail', $randomProductId);
 })->name('random.product');
+
+Route::get('/checkout', function () {
+    return view('checkout');
+})->name('checkout');
+
+Route::post('/checkout/process', [PaymentController::class, 'handlePayment'])->name('checkout.process');
+
+Route::get('/checkout/success', function () {
+    return view('checkout_success');
+})->name('checkout.success');
+
+Route::get('/checkout/error', function () {
+    return view('checkout_error');
+})->name('checkout.error');

@@ -10,77 +10,45 @@ class ShoppingCartController extends Controller
     public function viewCart()
     {
         $cart = session()->get('cart', []);
-
-        // Calculate total price
-        $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
-
-        return view('cart', ['cart' => $cart, 'total' => $total]);
+        $total = array_reduce($cart, fn ($carry, $item) => $carry + $item['price'] * $item['quantity'], 0);
+        return view('cart', compact('cart', 'total'));
     }
 
     public function addToCart(Product $product)
     {
         $cart = session()->get('cart', []);
+        $quantity = max(1, request()->input('quantity', 1));
         $itemId = $product->id;
-        $quantity = max(1, request()->input('quantity')); // Retrieve quantity from form submission, ensuring it's at least 1
 
-        // Check if item already exists in cart
-        if (array_key_exists($itemId, $cart)) {
-            $cart[$itemId]['quantity'] += $quantity; // Add the submitted quantity;
+        if (isset($cart[$itemId])) {
+            $cart[$itemId]['quantity'] += $quantity;
         } else {
-            $cart[$itemId] = [
-                'id' => $product->id,
-                'name' => $product->name,
-                'price' => $product->price,
-                'image' => $product->image,
-                'quantity' => $quantity, // Set the submitted quantity,
-            ];
+            $cart[$itemId] = $product->toArray();
+            $cart[$itemId]['quantity'] = $quantity;
         }
 
         session()->put('cart', $cart);
-
         return redirect()->route('cart.view')->with('success', 'Item added to cart successfully.');
     }
 
     public function updateCart(Request $request, $itemId)
     {
         $cart = session()->get('cart', []);
-
-        // Check if item exists in cart
-        if (array_key_exists($itemId, $cart)) {
+        
+        if (isset($cart[$itemId])) {
             $quantity = $request->input('quantity');
             $operation = $request->input('operation');
 
-            // Increment or decrement quantity based on operation
             if ($operation === 'increment') {
                 $cart[$itemId]['quantity']++;
-            } elseif ($operation === 'decrement') {
+            } elseif ($operation === 'decrement' && $cart[$itemId]['quantity'] > 1) {
                 $cart[$itemId]['quantity']--;
-                if ($cart[$itemId]['quantity'] <= 0) {
-                    unset($cart[$itemId]); // Remove item if quantity becomes zero or negative
-                }
+            } elseif ($operation === 'remove') {
+                unset($cart[$itemId]);
             }
 
             session()->put('cart', $cart);
-
             return redirect()->route('cart.view')->with('success', 'Cart updated successfully.');
-        } else {
-            return redirect()->route('cart.view')->with('error', 'Item not found in cart.');
-        }
-    }
-
-    public function removeFromCart($itemId)
-    {
-        $cart = session()->get('cart', []);
-
-        // Check if item exists in cart
-        if (array_key_exists($itemId, $cart)) {
-            unset($cart[$itemId]); // Remove item from cart
-            session()->put('cart', $cart);
-
-            return redirect()->route('cart.view')->with('success', 'Item removed from cart successfully.');
         } else {
             return redirect()->route('cart.view')->with('error', 'Item not found in cart.');
         }

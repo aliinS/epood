@@ -41,7 +41,7 @@
                         max="{{ $product->quantity }}" class="w-16 px-2 py-1 border rounded-md mb-4">
                     <button type="submit"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add to
-                        Basket</button>
+                        Cart</button>
                 </form>
 
             </div>

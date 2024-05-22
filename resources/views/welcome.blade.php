@@ -17,7 +17,7 @@
             <div class="flex items-center">
                 <a href="{{ route('random.product') }}"
                     class="text-lg font-semibold flex items-center"><x-rpg-perspective-dice-random
-                        class="h-10 w-10 mr-1" />Random pick</a>
+                        class="h-10 w-10 mr-1" />Random dick pic</a>
             </div>
             <div class="flex items-center">
                 <a href="{{ route('cart.view') }}" class="text-lg font-semibold flex items-center"><x-typ-shopping-cart
@@ -34,17 +34,15 @@
                 @foreach ($products as $product)
                     <a href="{{ route('product.detail', $product->id) }}" class="block hover:no-underline">
                         <div class="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer">
-                            <!-- Product Image -->
+                            
                             <img src="{{ asset($product->image) }}" alt="{{ $product->name }}"
                                 class="w-full h-56 object-cover">
 
-                            <!-- Product Information -->
                             <div class="p-4">
                                 <h2 class="text-xl font-semibold mb-2">{{ ucfirst($product->name) }}</h2>
                                 <p class="text-gray-800 font-semibold">{{ $product->price }}€</p>
                             </div>
 
-                            <!-- Add to Cart Button -->
                             <form action="{{ route('cart.add', $product->id) }}" method="POST">
                                 @csrf
                                 <button type="submit"

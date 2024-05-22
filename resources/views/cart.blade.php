@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="flex items-center text-right w-full md:w-1/4 mt-4 md:mt-0">
-                            <form action="{{ route('cart.update', $itemId) }}" method="POST" class="inline-flex mr-4">
+                            <form action="{{ route('cart.update', $itemId, ) }}" method="POST" class="inline-flex mr-4">
                                 @csrf
                                 <button type="submit" name="operation" value="decrement"
                                     class="bg-gray-200 text-gray-600 px-2 py-1 rounded-full hover:bg-gray-300">
@@ -58,13 +58,6 @@
                             <form action="{{ route('cart.remove', $itemId) }}" method="POST" class="inline-flex">
                                 @csrf
                                 <button type="submit"
-                                    class="bg-red-500 text-white px-4 py-1 rounded-full hover:bg-red-600 md:hidden">Remove</button>
-                            </form>
-                        </div>
-                        <div class="hidden md:block">
-                            <form action="{{ route('cart.remove', $itemId) }}" method="POST">
-                                @csrf
-                                <button type="submit"
                                     class="bg-red-500 text-white px-4 py-1 rounded-full hover:bg-red-600">Remove</button>
                             </form>
                         </div>
@@ -75,8 +68,17 @@
         @else
             <p class="text-lg text-center">Your shopping cart is currently empty!</p>
         @endif
-        <a href="{{ route('welcome') }}" class="block text-blue-500 mt-8 text-center hover:underline">Continue
-            Shopping</a>
+        <div class="flex justify-between">
+            <button type="button" onclick="window.location='{{ route('welcome') }}'" class="block bg-blue-500 text-white px-4 py-1 rounded-full hover:bg-blue-600 mt-8 text-center">
+                Continue Shopping
+            </button>
+            
+            <button type="button" onclick="window.location='{{ route('checkout') }}'" class="block border border-green-200 bg-green-100 text-black px-4 py-1 rounded-full hover:bg-green-200 mt-8 text-center">
+                Proceed to checkout
+            </button>
+            
+        </div>
+        
     </div>
     
 </body>
