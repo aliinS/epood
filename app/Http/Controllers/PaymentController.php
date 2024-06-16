@@ -11,7 +11,7 @@ class PaymentController extends Controller
     public function handlePayment(Request $request)
     {
         // Set your Stripe API key
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
         try {
             // Create a charge
