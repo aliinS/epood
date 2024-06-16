@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Stripe\Stripe;
 use Stripe\Exception\CardException;
 
@@ -11,8 +12,7 @@ class PaymentController extends Controller
     public function handlePayment(Request $request)
     {
         // Set your Stripe API key
-        Stripe::setApiKey(config('services.stripe.secret'));
-
+        \Stripe\Stripe::setApiKey(Config::get('services.stripe.secret'));
         try {
             // Create a charge
             $charge = \Stripe\Charge::create([
