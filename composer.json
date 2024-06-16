@@ -17,7 +17,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "stripe/stripe-php": "^14.5"
+        "stripe/stripe-php": "^14.10"
     },
     "require-dev": {
         "deployer/deployer": "^7.3",

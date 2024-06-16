@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -36,16 +37,8 @@ Route::get('/random-product', function () {
     return redirect()->route('product.detail', $randomProductId);
 })->name('random.product');
 
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
+Route::get('/checkout', [ShoppingCartController::class, 'checkout'])->name('checkout');
 
-Route::post('/checkout/process', [PaymentController::class, 'handlePayment'])->name('checkout.process');
-
-Route::get('/checkout/success', function () {
-    return view('checkout_success');
-})->name('checkout.success');
-
-Route::get('/checkout/error', function () {
-    return view('checkout_error');
-})->name('checkout.error');
+Route::post('/checkout', [CheckoutController::class, 'createCheckoutSession'])->name('checkout.process');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
